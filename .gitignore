@@ -14,6 +14,10 @@ build/
 *.js.map
 *.d.ts
 !src/**/*.js
+!dist/**/*.js
+!dist/**/*.js.map
+!dist/**/*.d.ts
+!dist/**/*.d.ts.map
 
 # IDE
 .vscode/
