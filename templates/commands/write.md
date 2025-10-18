@@ -29,6 +29,36 @@ scripts:
    - `stories/*/creative-plan.md`（创作计划）
    - `stories/*/tasks.md`（当前任务）
 
+2.5. **自动加载写作风格和规范（基于配置）**：
+   - 读取 `specification.md` 的 YAML frontmatter
+   - 检查是否配置了 `writing-style`（写作风格）
+   - 检查是否配置了 `writing-requirements`（写作规范）
+
+   **如果配置了 writing-style**，加载对应风格文档：
+   ```yaml
+   ---
+   writing-style: natural-voice
+   ---
+   ```
+   则读取：`.claude/knowledge-base/styles/natural-voice.md`
+
+   **如果配置了 writing-requirements**，加载对应规范文档：
+   ```yaml
+   ---
+   writing-requirements:
+     - anti-ai-v4
+     - fast-paced
+   ---
+   ```
+   则读取：
+   - `.claude/knowledge-base/requirements/anti-ai-v4.md`
+   - `.claude/knowledge-base/requirements/fast-paced.md`
+
+   ⚠️ **优先级说明**：
+   - 风格文档（styles）的优先级**高于** spec/presets/ 中的旧版规范
+   - 规范文档（requirements）会**叠加**应用（所有配置的规范都生效）
+   - 如果未配置，则使用默认的 spec/presets/ 规范
+
 3. **再查（状态和数据）**：
    - `spec/tracking/character-state.json`（角色状态）
    - `spec/tracking/relationships.json`（关系网络）
@@ -53,7 +83,7 @@ scripts:
 
 ### ⚠️ 强制完成确认（解决失焦问题的关键）
 
-**在开始写作前，你必须明确列出已读取的9项核心文件**：
+**在开始写作前，你必须明确列出已读取的核心文件**：
 
 ```markdown
 📋 写作前检查清单（已完成）：
@@ -68,10 +98,19 @@ scripts:
 ✓ 8. spec/tracking/plot-tracker.json - 情节追踪（如有）
 ✓ 9. spec/tracking/validation-rules.json - 验证规则（如有）
 
+🎨 写作风格和规范（基于配置）：
+✓ 写作风格：[style-name]（如配置）或 无配置
+✓ 写作规范：[requirement-1, requirement-2, ...]（如配置）或 无配置
+
 📊 上下文加载状态：✅ 完成
 ```
 
 **如果任何文件不存在或读取失败，必须明确说明原因**。
+
+**风格和规范说明**：
+- 如果 specification.md 中配置了 `writing-style` 或 `writing-requirements`，必须列出具体加载的文档
+- 示例："写作风格：natural-voice"、"写作规范：anti-ai-v4, fast-paced"
+- 如果未配置，标注"无配置"并使用默认规范
 
 ⚠️ **禁止跳过此步骤**：这是防止AI在长篇创作中失焦的核心机制。只有完成此确认后，才能进入下一步写作流程。
 
@@ -101,6 +140,26 @@ scripts:
 - P0 必须包含的元素
 - 目标读者特征
 - 内容红线提醒
+
+**基于写作风格和规范提醒（如已配置）**：
+- 当前激活的写作风格及其核心原则
+- 当前激活的写作规范及其关键要求
+- 风格和规范的组合效果说明
+- 需要特别注意的禁忌和要点
+
+**示例**：
+```
+🎨 当前写作配置：
+- 风格：natural-voice（自然人声）
+  - 口语化优先，对话推动情节
+  - 行为>心理，具体>抽象
+
+- 规范：anti-ai-v4 + fast-paced
+  - 200+禁用词，形容词限制
+  - 每章至少2个爽点，节奏紧凑
+
+组合效果：自然流畅的快节奏爽文
+```
 
 **分段格式规范（重要）**：
 - ⛔ **禁止使用**："一"、"二"、"三"等数字标记分段

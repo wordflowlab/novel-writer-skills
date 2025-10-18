@@ -352,6 +352,7 @@ program
     .command('upgrade')
     .option('--commands', '更新命令文件')
     .option('--skills', '更新 Skills 文件')
+    .option('--knowledge-base', '更新知识库系统')
     .option('--all', '更新所有内容')
     .option('-y, --yes', '跳过确认提示')
     .description('升级现有项目到最新版本')
@@ -371,9 +372,11 @@ program
         console.log(chalk.gray(`目标版本: ${getVersion()}\n`));
         let updateCommands = options.all || options.commands || false;
         let updateSkills = options.all || options.skills || false;
-        if (!updateCommands && !updateSkills) {
+        let updateKnowledgeBase = options.all || options.knowledgeBase || false;
+        if (!updateCommands && !updateSkills && !updateKnowledgeBase) {
             updateCommands = true;
             updateSkills = true;
+            updateKnowledgeBase = true;
         }
         if (!options.yes) {
             const inquirer = (await import('inquirer')).default;
@@ -407,6 +410,14 @@ program
                 await fs.copy(skillsSource, skillsDest, { overwrite: true });
             }
         }
+        if (updateKnowledgeBase) {
+            spinner.text = '更新知识库系统...';
+            const knowledgeBaseSource = path.join(packageRoot, 'templates', 'knowledge-base');
+            const knowledgeBaseDest = path.join(projectPath, '.claude', 'knowledge-base');
+            if (await fs.pathExists(knowledgeBaseSource)) {
+                await fs.copy(knowledgeBaseSource, knowledgeBaseDest, { overwrite: true });
+            }
+        }
         config.version = getVersion();
         await fs.writeJson(configPath, config, { spaces: 2 });
         spinner.succeed(chalk.green('升级完成！\n'));
@@ -415,6 +426,8 @@ program
             console.log('  • Slash Commands 已更新');
         if (updateSkills)
             console.log('  • Agent Skills 已更新');
+        if (updateKnowledgeBase)
+            console.log('  • 知识库系统 已更新（包括 styles/ 和 requirements/）');
         console.log(`  • 版本号: ${projectVersion} → ${getVersion()}`);
     }
     catch (error) {
