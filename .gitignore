@@ -49,4 +49,5 @@ logs/
 Thumbs.db
 
 other/
+.claude/
 

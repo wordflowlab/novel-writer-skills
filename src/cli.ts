@@ -136,11 +136,19 @@ program
         await fs.copy(trackingTemplatesDir, userTrackingDir);
       }
 
-      // 复制知识库模板
+      // 复制知识库模板（项目特定）
       const knowledgeTemplatesDir = path.join(packageRoot, 'templates', 'knowledge');
       if (await fs.pathExists(knowledgeTemplatesDir)) {
         const userKnowledgeDir = path.join(projectPath, 'spec', 'knowledge');
         await fs.copy(knowledgeTemplatesDir, userKnowledgeDir);
+      }
+
+      // 复制通用知识库系统（v1.0新增）
+      const knowledgeBaseDir = path.join(packageRoot, 'templates', 'knowledge-base');
+      if (await fs.pathExists(knowledgeBaseDir)) {
+        const claudeKnowledgeBaseDir = path.join(projectPath, '.claude', 'knowledge-base');
+        await fs.copy(knowledgeBaseDir, claudeKnowledgeBaseDir);
+        spinner.text = '已安装知识库系统...';
       }
 
       // 如果指定了 --plugins，安装插件
