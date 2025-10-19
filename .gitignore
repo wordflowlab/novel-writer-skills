@@ -5,7 +5,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build outputs
-# dist/ - 需要发布到 npm，所以不忽略
+dist/
 build/
 *.tsbuildinfo
 
@@ -14,10 +14,6 @@ build/
 *.js.map
 *.d.ts
 !src/**/*.js
-!dist/**/*.js
-!dist/**/*.js.map
-!dist/**/*.d.ts
-!dist/**/*.d.ts.map
 
 # IDE
 .vscode/
