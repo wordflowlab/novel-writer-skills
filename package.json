@@ -51,11 +51,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wordflowlab/novel-writer-skills"
+    "url": "git+https://github.com/wordflowlab/novel-writer-skills.git"
   },
   "homepage": "https://github.com/wordflowlab/novel-writer-skills#readme",
   "bugs": {
     "url": "https://github.com/wordflowlab/novel-writer-skills/issues"
   }
 }
-
