@@ -1,7 +1,7 @@
 ---
 name: style-detector
-description: "自动探测用户想要的写作风格，并加载对应的风格指南 - 监听用户在 specification、constitution、对话中提到的风格关键词，无缝激活相应知识库"
-allowed-tools: Read
+description: "探测用户的写作风格需求并加载对应指南。当用户提到口语化、生活化、真实感、文学性、严肃文学、纯文学、网文、爽文、快节奏、古风、武侠、古韵、极简、海明威、克制等关键词时自动激活。适用于讨论小说风格、写作文风、创作方向时使用。"
+allowed-tools: Read, Edit
 ---
 
 # 写作风格探测器

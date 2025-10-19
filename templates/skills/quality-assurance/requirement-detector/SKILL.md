@@ -1,7 +1,7 @@
 ---
 name: requirement-detector
-description: "自动探测用户想要的写作规范，并加载对应的要求文档 - 监听用户在 specification、constitution、对话中提到的规范关键词，无缝激活相应知识库"
-allowed-tools: Read
+description: "探测用户的写作规范需求并加载对应文档。当用户提到AI味重、去AI味、自然、爽文、快节奏、爽点、无毒点、不降智、严肃文学、有深度、强情绪、打动人、甜文、撒糖、虐文、虐心、BE等关键词时自动激活。适用于讨论写作要求、AI去味方法、节奏控制、情感表达时使用。"
+allowed-tools: Read, Edit
 ---
 
 # 写作规范探测器
