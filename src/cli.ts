@@ -70,7 +70,6 @@ program
       const baseDirs = [
         '.specify',
         '.specify/memory',
-        '.specify/scripts',
         '.specify/templates',
         '.claude',
         '.claude/commands',

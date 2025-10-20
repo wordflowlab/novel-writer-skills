@@ -41,7 +41,7 @@ novelwrite init my-novel --plugins authentic-voice
 
 在 Claude Code 中打开项目，使用斜杠命令：
 
-```
+```text
 /constitution    # 1. 创建创作宪法
 /specify         # 2. 定义故事规格
 /clarify         # 3. 澄清关键决策
@@ -123,7 +123,7 @@ novelwrite plugin:remove authentic-voice
 
 ## 📖 项目结构
 
-```
+```text
 my-novel/
 ├── .claude/
 │   ├── commands/       # Slash Commands
@@ -132,7 +132,13 @@ my-novel/
 ├── .specify/           # Spec Kit 配置
 │   ├── memory/
 │   │   └── constitution.md
-│   └── scripts/
+│   └── templates/
+│       ├── scripts/    # 命令行脚本工具
+│       │   ├── bash/
+│       │   └── powershell/
+│       ├── commands/
+│       ├── knowledge/
+│       └── ...
 │
 ├── stories/
 │   └── 001-my-story/
@@ -171,6 +177,7 @@ my-novel/
 | **适用场景** | 需要跨平台支持 | 追求最佳体验（Claude Code） |
 
 **选择建议**：
+
 - 如果你使用多个AI工具 → 选择 **novel-writer**
 - 如果你专注 Claude Code → 选择 **novel-writer-skills**
 
@@ -202,11 +209,85 @@ novelwrite plugin:add <plugin-name>
 novelwrite plugin:remove <plugin-name>
 ```
 
+## 🔧 命令行脚本（可选）
+
+除了 Claude Code 中的 Slash Commands，项目还包含命令行脚本工具：
+
+### 脚本位置
+
+初始化项目后，脚本位于：`.specify/templates/scripts/`
+
+```text
+.specify/templates/scripts/
+├── bash/          # macOS/Linux 脚本
+└── powershell/    # Windows 脚本
+```
+
+### 使用场景
+
+- ✅ **命令行替代** - 在终端中直接执行七步方法论
+- ✅ **自动化工作流** - 集成到 CI/CD 或批处理脚本
+- ✅ **批量操作** - 处理多个故事或批量检查
+- ✅ **独立使用** - 不依赖 Claude Code 的场景
+
+### 快速示例
+
+**macOS/Linux:**
+
+```bash
+# 创建宪法
+bash .specify/templates/scripts/bash/constitution.sh
+
+# 定义规格
+bash .specify/templates/scripts/bash/specify-story.sh
+
+# 追踪进度
+bash .specify/templates/scripts/bash/track-progress.sh
+```
+
+**Windows:**
+
+```powershell
+# 创建宪法
+.\.specify\templates\scripts\powershell\constitution.ps1
+
+# 定义规格
+.\.specify\templates\scripts\powershell\specify-story.ps1
+
+# 追踪进度
+.\.specify\templates\scripts\powershell\track-progress.ps1
+```
+
+### 可用脚本
+
+所有 Slash Commands 都有对应的脚本版本：
+
+| 脚本 | 功能 | 对应命令 |
+|-----|------|---------|
+| `constitution` | 创建创作宪法 | `/constitution` |
+| `specify-story` | 定义故事规格 | `/specify` |
+| `plan-story` | 制定创作计划 | `/plan` |
+| `track-progress` | 追踪进度 | `/track` |
+| `check-consistency` | 一致性检查 | - |
+| 以及更多... | 查看 `.specify/templates/scripts/README.md` | - |
+
+📖 **详细文档**：[scripts/README.md](templates/scripts/README.md)
+
+### 何时使用脚本 vs Slash Commands
+
+| 场景 | 推荐方式 |
+|-----|---------|
+| 日常创作、需要 AI 协助 | ✅ Slash Commands (优先) |
+| 批量处理、自动化 | ✅ 命令行脚本 |
+| CI/CD 集成 | ✅ 命令行脚本 |
+| 快速检查验证 | ✅ 命令行脚本 |
+
 ## 📚 文档
 
 - [入门指南](docs/getting-started.md) - 详细安装和使用教程
 - [命令详解](docs/commands.md) - 所有命令的完整说明
 - [Skills 指南](docs/skills-guide.md) - Agent Skills 工作原理
+- [脚本工具集](templates/scripts/README.md) - 命令行脚本使用指南
 - [插件开发](docs/plugin-development.md) - 如何开发自己的插件
 
 ## 🤝 贡献
@@ -226,4 +307,3 @@ MIT License
 ---
 
 **Novel Writer Skills** - 让 Claude Code 成为你的最佳创作伙伴！ ✨📚
-
